@@ -1,0 +1,34 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.forms>h1{
+    text-align: center;
+}
+.forms{
+    border: 1px solid black;
+    width: max-content;
+    padding: 30px 30px;
+    background-color:rgba(0,0,0,0.1);
+}
+input[type=text],
+input[type=password]{
+    width: 350px;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+button{
+    margin: 10px 100px;
+    width:200px;
+    padding: 10px;
+}
+.container{
+    margin-left: 50px;
+    margin-top: 120px;
+    
+}
+body{
+    background-image: url('images/premium_photo-1701842912302-501bfc88c403.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
