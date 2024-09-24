@@ -28,7 +28,10 @@ button{
     
 }
 body{
-    background-image: url('images/premium_photo-1701842912302-501bfc88c403.jpeg');
+    background-image: url('images/bg.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+a:hover{
+    text-decoration: none;
 }
