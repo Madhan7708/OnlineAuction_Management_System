@@ -1,8 +1,5 @@
 <?php
 include "db.php";
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -15,8 +12,6 @@ include "db.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" integrity="sha384-tViUnnbYAV00FLIhhi3v/dWt3Jxw4gZQcNoSCxCIFNJVCx7/D55/wXsrNIRANwdD" crossorigin="anonymous">
-
-
 </head>
 
 <body>
@@ -26,19 +21,16 @@ include "db.php";
             <div class="mb-3">
                 <i class="bi bi-person-circle bg-white"></i>
                 <label for="username" class="text-white">Username</label><br>
-                <input type="text" name="username" placeholder=" Enter your Username">
-
+                <input type="text" name="username" placeholder="Enter your Username">
             </div>
             <div class="mb-3">
                 <i class="bi bi-file-lock-fill bg-white"></i>
                 <label for="password" class="text-white">Password</label><br>
                 <input type="password" name="password" placeholder="Enter your Password">
             </div>
-            <h4><a href="#">Forgot Password ? </a></h4>
+            <h4><a href="#">Forgot Password ?</a></h4>
             <button type="submit" class="bg-primary text-white">Login</button>
-            <h4 id="one"><a href="register.php">Are you New User </a></h4>
-
-
+            <h4 id="one"><a href="register.php">Are you a New User?</a></h4>
         </form>
     </div>
 </body>
@@ -48,17 +40,18 @@ include "db.php";
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if username and password are set using isset
-    if (isset($_POST['username']) && isset($_POST['password'])) {   // check value of username and password is declared
-        $user = $_POST['username']; //assign to the user
-        $pass = $_POST['password'];  // assign to password
-        // SQL INJECTION  inputs
-        $users = mysqli_real_escape_string($conn, $user);   // to prevent sql injection
-        $password = mysqli_real_escape_string($conn, $pass);  // to prevent the sql injection
+    // Check if username and password are set
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $user = $_POST['username']; //assign to user
+        $pass = $_POST['password'];  //assign to password
+        
+        // Prevent SQL injection
+        $users = mysqli_real_escape_string($conn, $user);  
+        $password = mysqli_real_escape_string($conn, $pass);
 
         // Check if either field is empty
         if (empty($users) || empty($password)) {
-            echo "Missing user credentials";
+            echo "Missing user credentials.";
         } else {
             // Execute SQL query
             $sql = "SELECT * FROM login WHERE username='$users' AND password='$password'";
@@ -67,18 +60,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if user exists
             if ($count > 0) {
-                echo "Login Success";
+                echo "Login Success!";
             } else {
                 echo "Invalid User Details";
             }
         }
     } else {
         // Handle case when fields are not set
-        echo "Username and Password must be provided";
+        echo "Username and Password must be provided.";
     }
 }
-
-
 ?>
 
 </html>

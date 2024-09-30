@@ -1,7 +1,34 @@
 <?php
 include("db.php");
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];  // assign values
+    $mail = $_POST['mail'];  // assign value
+    $user = $_POST['username'];
+    $pass = $_POST['pass'];
+    
+    // Prevent SQL injection
+    $names = mysqli_real_escape_string($conn, $name);  
+    $email = mysqli_real_escape_string($conn, $mail);   
+    $users = mysqli_real_escape_string($conn, $user);
+    $password = mysqli_real_escape_string($conn, $pass);
+
+    // Check if any fields are empty
+    if (empty($names) || empty($email) || empty($users) || empty($password)) {
+        echo "Missing user credentials.";
+    } else {
+        // Insert into database
+        $sql = "INSERT INTO login (name, mail, username, password) VALUES ('$names','$email','$users','$password')";
+        $result = mysqli_query($conn, $sql);
+        if ($result == TRUE) {
+            echo "Registration Success!";
+        } else {
+            echo "Invalid registration.";
+        }
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,35 +62,29 @@ include("db.php");
       <div class="mb-3">
         <i class="bi bi-person-square bg-white"></i>
         <label for="name" class="text-white">Name</label><br />
-        <input type="text" name="name" placeholder=" Enter your name" />
+        <input type="text" name="name" placeholder="Enter your name" />
       </div>
 
       <div class="mb-3">
-        <i class=" bi bi-envelope bg-white"></i>
+        <i class="bi bi-envelope bg-white"></i>
         <label for="mail" class="text-white">Mail</label><br />
-        <input type="mail" name="mail" placeholder=" Enter your Mail" />
+        <input type="email" name="mail" placeholder="Enter your Mail" />
       </div>
 
       <div class="mb-3">
         <i class="bi bi-person-circle bg-white"></i>
         <label for="username" class="text-white">Username</label><br />
-        <input
-          type="text"
-          name="username"
-          placeholder=" Enter your Username" />
+        <input type="text" name="username" placeholder="Enter your Username" />
       </div>
+      
       <div class="mb-3">
         <i class="bi bi-file-lock-fill bg-white"></i>
         <label for="pass" class="text-white">Password</label><br />
-        <input
-          type="password"
-          name="pass"
-          placeholder="Enter your Password" />
+        <input type="password" name="pass" placeholder="Enter your Password" />
       </div>
 
-      <button type="submit" class="bg-primary text-white">Login</button>
-      <h4 id="one"><a href="index.php">Back to Login </a></h4>
-
+      <button type="submit" class="bg-primary text-white">Sign Up</button>
+      <h4 id="one"><a href="index.php">Back to Login</a></h4>
     </form>
   </div>
 </body>
@@ -79,31 +100,4 @@ include("db.php");
   src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
   crossorigin="anonymous"></script>
-<?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (isset($_POST['name']) && isset($_POST['mail']) && isset($_POST['username']) &&  isset($_POST['pass'])) {   // to declared the value of its each data items
-    $name = $_POST['name'];  // assign values
-    $mail = $_POST['mail'];  // assign value
-    $user = $_POST['username'];
-    $pass = $_POST['pass'];
-    $names = mysqli_real_escape_string($conn, $name);  // to prevent the sql injection
-    $email = mysqli_real_escape_string($conn, $mail);   // to prevent sql injection
-    $users = mysqli_real_escape_string($conn, $user);
-    $password = mysqli_real_escape_string($conn, $pass);
-    if (empty($names) && empty($email) && empty($users) && empty($password)) {
-      echo "missing user creditnals";
-    } else {
-      $sql = "INSERT INTO login (name,mail,username,password) VALUES ('$names','$email','$users','$password')";
-      $result = mysqli_query($conn, $sql);
-      if ($result == TRUE) {
-        echo "Register Success";
-      } else {
-        echo "invalid register";
-      }
-    }
-  }
-}
-?>
-
-
 </html>
