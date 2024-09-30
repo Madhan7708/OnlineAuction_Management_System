@@ -52,7 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Check if either field is empty
         if (empty($users) || empty($password)) {
             echo "Missing user credentials.";
-        } else {
+        } 
+        else {
             // Execute SQL query
             $sql = "SELECT * FROM login WHERE username='$users' AND password='$password'";
             $result = mysqli_query($conn, $sql);
@@ -60,12 +61,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if user exists
             if ($count > 0) {
-                echo "Login Success!";
+                echo "Login Success! ";
             } else {
                 echo "Invalid User Details";
             }
         }
-    } else {
+    } 
+    else {
         // Handle case when fields are not set
         echo "Username and Password must be provided.";
     }

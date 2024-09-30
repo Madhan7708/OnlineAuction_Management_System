@@ -2,30 +2,41 @@
 include("db.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];  // assign values
-    $mail = $_POST['mail'];  // assign value
-    $user = $_POST['username'];
-    $pass = $_POST['pass'];
-    
-    // Prevent SQL injection
-    $names = mysqli_real_escape_string($conn, $name);  
-    $email = mysqli_real_escape_string($conn, $mail);   
-    $users = mysqli_real_escape_string($conn, $user);
-    $password = mysqli_real_escape_string($conn, $pass);
+  $name = $_POST['name'];  // assign values
+  $mail = $_POST['mail'];  // assign value
+  $user = $_POST['username'];
+  $pass = $_POST['pass'];
 
-    // Check if any fields are empty
-    if (empty($names) || empty($email) || empty($users) || empty($password)) {
-        echo "Missing user credentials.";
-    } else {
-        // Insert into database
-        $sql = "INSERT INTO login (name, mail, username, password) VALUES ('$names','$email','$users','$password')";
-        $result = mysqli_query($conn, $sql);
-        if ($result == TRUE) {
-            echo "Registration Success!";
-        } else {
-            echo "Invalid registration.";
-        }
+  // Prevent SQL injection
+  $names = mysqli_real_escape_string($conn, $name);
+  $email = mysqli_real_escape_string($conn, $mail);
+  $users = mysqli_real_escape_string($conn, $user);
+  $password = mysqli_real_escape_string($conn, $pass);
+
+  // Check if any fields are empty
+  if (empty($names) || empty($email) || empty($users) || empty($password)) {
+    echo "Missing user credentials.";
+  } 
+  else {
+    //check mail id if already user with register within it
+    $checkmail = "SELECT * FROM login WHERE mail='$email'";
+    $check_result = mysqli_query($conn, $checkmail);
+
+    if (mysqli_num_rows($check_result) > 0) {
+      // Email already exists
+      echo "This email is already registered. Please use a different email.";
+    } 
+    else {
+      // Insert into database
+      $sql = "INSERT INTO login (name, mail, username, password) VALUES ('$names','$email','$users','$password')";
+      $result = mysqli_query($conn, $sql);
+      if ($result == TRUE) {
+        echo "Registration Success!";
+      } else {
+        echo "Invalid registration.";
+      }
     }
+  }
 }
 ?>
 
@@ -76,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="username" class="text-white">Username</label><br />
         <input type="text" name="username" placeholder="Enter your Username" />
       </div>
-      
+
       <div class="mb-3">
         <i class="bi bi-file-lock-fill bg-white"></i>
         <label for="pass" class="text-white">Password</label><br />
@@ -100,4 +111,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
   integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
   crossorigin="anonymous"></script>
+
 </html>
