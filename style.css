@@ -32,7 +32,7 @@ body{
     background-image: url('images/bg.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
-}
+} 
 a:hover{
     text-decoration: none;
 }
