@@ -12,7 +12,8 @@
     background-color:rgba(0,0,0,0.1);
 }
 input[type=text],
-input[type=password]{
+input[type=password],
+input[type=mail]{
     width: 350px;
     padding: 10px 10px;
     border-radius: 20px;
