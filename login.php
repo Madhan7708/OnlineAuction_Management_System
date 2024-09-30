@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } 
         else {
             // Execute SQL query
-            $sql = "SELECT * FROM login WHERE username='$users' AND password='$password'";
+            $sql = "SELECT * FROM login WHERE username='$users' AND password='$password' AND status ='2'";
             $result = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($result);
 
