@@ -244,8 +244,8 @@ $result1 = mysqli_query($conn, $sql);
                     }
                     else{
                         Swal.fire({
-                                title: "Approved!",
-                                text: "USER APPROVED bY ADMINS",
+                                title: "Success",
+                                text: "User Approved",
                                 icon: "success"
                             });
                             $('#addnewtask').load(location.href + " #addnewtask");
