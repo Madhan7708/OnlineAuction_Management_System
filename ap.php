@@ -155,16 +155,15 @@ $result1 = mysqli_query($conn, $sql);
                                             <td><?php echo $row['password'] ?></td>
 
                                             <td>
-                                                <button type="button" class="btn btn-success userapprove">Approve</button>
-
-                                                <button type="button" class="btn btn-danger">Reject</button>
+                                                <button type="button" value="<?php echo $row['id'] ?>" class="btn btn-success userapprove">Approve</button>
+                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
 
                                             </td>
                                         </tr>
                                     <?php
                                     }
                                     $s++
-                                    ?> 
+                                    ?>
 
                                 </tbody>
 
@@ -224,6 +223,39 @@ $result1 = mysqli_query($conn, $sql);
         $(document).ready(function() {
             $('#addnewtask').DataTable();
         });
+
+        $(document).on('click', '.userapprove', function(e) {
+            e.preventDefault();
+            var id = $(this).val();
+            console.log(id);
+            if (confirm('Are you sure you want to approve the User ?')) {
+
+            $.ajax({
+                type: "POST",
+                url: "backend.php",
+                data: {
+                    'approve_user': true,
+                    'user_id': id
+                },
+                success:function(response){
+                    var res = jQuery.parseJSON(response);
+                    if(res.status == 500){
+                        alert(res.message);
+                    }
+                    else{
+                        Swal.fire({
+                                title: "Approved!",
+                                text: "USER APPROVED bY ADMINS",
+                                icon: "success"
+                            });
+                            $('#addnewtask').load(location.href + " #addnewtask");
+                    }
+                }
+            })
+        }
+
+
+        })
     </script>
 
 

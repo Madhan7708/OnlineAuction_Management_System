@@ -61,15 +61,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Check if user exists
             if ($count > 0) {
-                echo "Login Success! ";
+            ?>
+                <script>
+                     alert("Login Success");
+                </script>
+            <?php    
             } else {
-                echo "Invalid User Details";
+                ?>
+                <script>
+                    alert("Invalid user or password");
+                </script>
+                <?php
             }
         }
     } 
     else {
         // Handle case when fields are not set
-        echo "Username and Password must be provided.";
+        ?>
+        <script>
+             alert("Provide username and password")
+        </script>
+        <?php
     }
 }
 ?>
