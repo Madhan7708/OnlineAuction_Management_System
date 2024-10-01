@@ -155,9 +155,9 @@ $result1 = mysqli_query($conn, $sql);
                                             <td><?php echo $row['password'] ?></td>
 
                                             <td>
-                                                <button type="button" value="<?php echo $row['id'] ?>" class="btn btn-success userapprove">Approve</button>
-                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal">Reject</button>
-
+                                                <button type="button" value="<?php echo $row['id'] ?>" class="btn btn-success userapprove"><i class="fas fa-check"></i></button>
+                                                <button type="button" value="<?php echo $row['id']; ?>" class="btn btn-danger" data-toggle="modal" data-target="#rejectModal"><i class="fas fa-times"></i></button>
+                                                                                                                                        
                                             </td>
                                         </tr>
                                     <?php

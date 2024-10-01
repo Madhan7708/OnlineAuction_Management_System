@@ -24,16 +24,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (mysqli_num_rows($check_result) > 0) {
       // Email already exists
-      echo "This email is already registered. Please use a different email.";
+      ?>
+      <script>
+             alert("Email Already Exists");
+      </script>
+      <?php
     } 
     else {
       // Insert into database
       $sql = "INSERT INTO login (name, mail, username, password) VALUES ('$names','$email','$users','$password')";
       $result = mysqli_query($conn, $sql);
       if ($result == TRUE) {
-        echo "Registration Success!";
+        ?>
+        <script>
+            alert("User Register Success");
+            
+        </script>
+        <?php
       } else {
-        echo "Invalid registration.";
+        ?>
+        <script>
+             alert("Invalid User Register")
+        </script>
+        <?php
       }
     }
   }
